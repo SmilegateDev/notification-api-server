@@ -1,0 +1,26 @@
+{
+  "name": "notification-api-server",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmilegateDev/notification-api-server.git"
+  },
+  "keywords": [
+    "notification",
+    "api",
+    "server",
+    "backend"
+  ],
+  "author": "Tim Jaeyong Lee",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.6",
+    "njwt": "^1.0.0",
+    "redis": "^3.0.2"
+  }
+}
