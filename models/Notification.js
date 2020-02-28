@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 
 var notificationSchema = mongoose.Schema({
+  id: {
+    type:Number,
+    required:true,
+    unique:true
+  },
   send_user: {
     type:String,
     required:true
@@ -22,11 +27,8 @@ var notificationSchema = mongoose.Schema({
   createdAt:{
     type:Date, 
     default:Date.now, 
-  },
-  readAt: {
-    type:Date, 
-    default:Date.now, 
   }
+ 
 });
 
 var Notification = mongoose.model('notification', notificationSchema);

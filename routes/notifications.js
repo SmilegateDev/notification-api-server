@@ -5,6 +5,7 @@ var nJwt = require('njwt');
 var tokenValues;
 
 // Index
+/*
 router.get('/myNoti',
   function(req, res, next){
     var query = {};
@@ -19,35 +20,187 @@ router.get('/myNoti',
           res.json({success:false, message:err});
         }
         else {
-          res.json({success:true, data:notifications});
-        }
-      });
-  }
-);
-
-// Show
-/*
-router.get('/:id',
-  function(req, res, next){
-    Notification.findOne({id:req.params.id})
-      .exec(function(err, notification){
-        if(err) {
-          res.status(500);
-          res.json({success:false, message:err});
-        }
-        else if(!notification){
-          res.json({success:false, message:'notification not found'});
-        }
-        else {
-          res.json({success:true, data:notification});
+          res.json({success:true, data:notifications.contents});
         }
       });
   }
 );
 */
 
+// Show
+router.get('/:id',
+  function(req, res, next){
+    tokenValues=nJwt.verify(req.headers.authorization,process.env.JWT_SECRET, 'HS256');
+    Notification.find({rec_user:tokenValues.body.uid})
+      .sort('-createdAt') 
+      .exec(function(err, notifications){
+        if(err) {
+          res.status(500);
+          res.json({success:false, message:err});
+        }
+        else if(!notifications){
+          res.json({success:false, message:'notifications not found'});
+        }
+        else {
+          res.json({success:true, data:notifications});
+        }
+      });
+  }
+);
+
+
 // Create
-router.post('/newNoti',
+router.post('/reply',
+  function(req, res, next){
+    Notification.findOne({})
+      .sort({id: -1}) 
+      .exec(function(err, notification){
+        if(err) {
+          res.status(500);
+          return res.json({success:false, message:err});
+        }
+        else {
+          res.locals.lastId = notification?notification.id:0;
+          next();
+        }
+      });
+  },
+  function(req, res, next){
+    var newNotification = new Notification(req.body);
+    newNotification.id = res.locals.lastId + 1;
+    newNotification.save(function(err, notification){
+      if(err) {
+        res.status(500);
+        res.json({success:false, message:err});
+      }
+      else {
+        res.json({success:true, data:notification});
+      }
+    });
+  }
+);
+
+router.post('/follow',
+  function(req, res, next){
+    Notification.findOne({})
+      .sort({id: -1})
+      .exec(function(err, notification){
+        if(err) {
+          res.status(500);
+          return res.json({success:false, message:err});
+        }
+        else {
+          res.locals.lastId = notification?notification.id:0;
+          next();
+        }
+      });
+  },
+  function(req, res, next){
+    var newNotification = new Notification(req.body);
+    newNotification.id = res.locals.lastId + 1;
+    newNotification.save(function(err, notification){
+      if(err) {
+        res.status(500);
+        res.json({success:false, message:err});
+      }
+      else {
+        res.json({success:true, data:notification});
+      }
+    });
+  }
+);
+
+router.post('/like',
+  function(req, res, next){
+    Notification.findOne({})
+      .sort({id: -1})
+      .exec(function(err, notification){
+        if(err) {
+          res.status(500);
+          return res.json({success:false, message:err});
+        }
+        else {
+          res.locals.lastId = notification?notification.id:0;
+          next();
+        }
+      });
+  },
+  function(req, res, next){
+    var newNotification = new Notification(req.body);
+    newNotification.id = res.locals.lastId + 1;
+    newNotification.save(function(err, notification){
+      if(err) {
+        res.status(500);
+        res.json({success:false, message:err});
+      }
+      else {
+        res.json({success:true, data:notification});
+      }
+    });
+  }
+);
+
+router.post('/replyback',
+  function(req, res, next){
+    Notification.findOne({})
+      .sort({id: -1})
+      .exec(function(err, notification){
+        if(err) {
+          res.status(500);
+          return res.json({success:false, message:err});
+        }
+        else {
+          res.locals.lastId = notification?notification.id:0;
+          next();
+        }
+      });
+  },
+  function(req, res, next){
+    var newNotification = new Notification(req.body);
+    newNotification.id = res.locals.lastId + 1;
+    newNotification.save(function(err, notification){
+      if(err) {
+        res.status(500);
+        res.json({success:false, message:err});
+      }
+      else {
+        res.json({success:true, data:notification});
+      }
+    });
+  }
+);
+
+router.post('/unfollow',
+  function(req, res, next){
+    Notification.findOne({})
+      .sort({id: -1})
+      .exec(function(err, notification){
+        if(err) {
+          res.status(500);
+          return res.json({success:false, message:err});
+        }
+        else {
+          res.locals.lastId = notification?notification.id:0;
+          next();
+        }
+      });
+  },
+  function(req, res, next){
+    var newNotification = new Notification(req.body);
+    newNotification.id = res.locals.lastId + 1;
+    newNotification.save(function(err, notification){
+      if(err) {
+        res.status(500);
+        res.json({success:false, message:err});
+      }
+      else {
+        res.json({success:true, data:notification});
+      }
+    });
+  }
+);
+
+router.post('/unlike',
   function(req, res, next){
     Notification.findOne({})
       .sort({id: -1})
@@ -101,7 +254,6 @@ router.put('/:id',
 // Destroy
 router.delete('/delNoti/:id',
   function(req, res, next){
-    tokenValues=nJwt.verify(req.headers.authorization,process.env.JWT_SECRET, 'HS256');
     Notification.findOneAndRemove({id:req.params.id})
       .exec(function(err, notification){
         if(err) {
