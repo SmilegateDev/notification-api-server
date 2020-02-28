@@ -66,8 +66,12 @@ router.post('/reply',
       });
   },
   function(req, res, next){
-    var newNotification = new Notification(req.body);
+    var newNotification = new Notification();
     newNotification.id = res.locals.lastId + 1;
+    newNotification.post_id = req.body.post_id;
+    newNotification.rec_user = req.body.rec_user;
+    newNotification.send_user = req.body.send_user;
+    newNotification.contents = req.body.send_user+"님이 회원님의 게시물에 댓글을 남기셨습니다.";
     newNotification.save(function(err, notification){
       if(err) {
         res.status(500);
@@ -77,7 +81,7 @@ router.post('/reply',
         res.json({success:true, data:notification});
       }
     });
-  }
+  } 
 );
 
 router.post('/follow',
