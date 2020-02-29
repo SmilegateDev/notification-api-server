@@ -29,8 +29,6 @@ app.use(function (req, res, next) {
 
 // API
 app.use('/noti', require('./routes/notifications'));
-app.use('/noti/newNoti', require('./routes/notifications'));
-
 
 // Port setting
 var port = 3000;
