@@ -6,7 +6,8 @@ var notificationSchema = mongoose.Schema({
   rec_user: { type:String, required:true},
   post_id: { type:String},
   contents: { type:String, required:true},
-  createdAt:{ type:Date, default:Date.now}
+  createdAt:{ type:Date, default:Date.now},
+  status:{ type:String, required:true}
 });
 
 var Notification = mongoose.model('notification', notificationSchema);
