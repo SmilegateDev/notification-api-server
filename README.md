@@ -134,9 +134,12 @@ notification api server
 
 
 ### DELETE {url}/noti/delNoti/:id
-ex) http://localhost:3000/noti/delNoti/5?method:delete
-**request body**
-none
+ex) http://localhost:3000/noti/delNoti/5  
+
+**request body**  
+
+none  
+
 **response body**
 ```
 {
