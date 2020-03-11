@@ -1,7 +1,9 @@
 # notification-api-server
 notification api server
 
-
+### 참고자료
+https://xtreemsolution.com/blog/How-to-make-real-time-notification-system-using-socketio-and-nodejs
+https://www.valentinog.com/blog/socket-react/
 ## postman api
 ### POST {url}/noti/like
 **request body**
