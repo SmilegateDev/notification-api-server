@@ -2,6 +2,7 @@ var express  = require('express');
 var router = express.Router();
 var Notification = require('../models/Notification');
 var nJwt = require('njwt');
+require('dotenv').config();
 var tokenValues;
 var status;
 
