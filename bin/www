@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('notification-api-server:server');
+var debug = require('debug')('testing:server');
 var http = require('http');
 require('dotenv').config();
 
