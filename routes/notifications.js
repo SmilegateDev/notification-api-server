@@ -12,7 +12,7 @@ var status;
 router.get('/myNoti',
   function(req, res, next){
     tokenValues=nJwt.verify(req.headers.authorization,process.env.JWT_SECRET, 'HS256');
-    Notification.find({rec_user:tokenValues.body.uid})
+    Notification.find({rec_user:tokenValues.body.id}) // .uid -> .id 로 변경; get 안되는 버그 수정
       .sort('-createdAt') 
       .exec(function(err, notifications){
         if(err) {
