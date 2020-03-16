@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var createError = require('http-errors');
 var logger = require('morgan');
 var app = express();
+var WebSocketServer = require('ws').Server
+  , wss = new WebSocketServer({ port: 9090 });
 require('dotenv').config();
 
 // DB setting
