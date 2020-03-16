@@ -1,4 +1,6 @@
 var express  = require('express');
+var WebSocketServer = require('ws').Server
+  , wss = new WebSocketServer({ port: 9090 });
 var router = express.Router();
 var Notification = require('../models/Notification');
 var nJwt = require('njwt');
@@ -10,7 +12,7 @@ var status;
 router.get('/myNoti',
   function(req, res, next){
     tokenValues=nJwt.verify(req.headers.authorization,process.env.JWT_SECRET, 'HS256');
-    Notification.find({rec_user:tokenValues.body.uid})
+    Notification.find({rec_user:tokenValues.body.id}) // .uid -> .id 로 변경; get 안되는 버그 수정
       .sort('-createdAt') 
       .exec(function(err, notifications){
         if(err) {
@@ -55,7 +57,10 @@ router.post('/reply',
         res.json({success:false, message:err});
       }
       else {
-        res.json({success:true, data:notification});
+        wss.clients.forEach(function each(client) {
+          client.send("noti updated");
+        });
+        res.json({success:true});
       }
     });
   } 
@@ -87,7 +92,10 @@ router.post('/follow',
         res.json({success:false, message:err});
       }
       else {
-        res.json({success:true, data:notification});
+        wss.clients.forEach(function each(client) {
+          client.send("noti updated");
+        });
+        res.json({success:true});
       }
     });
   }
@@ -119,7 +127,10 @@ router.post('/like',
         res.json({success:false, message:err});
       }
       else {
-        res.json({success:true, data:notification});
+        wss.clients.forEach(function each(client) {
+          client.send("noti updated");
+        });
+        res.json({success:true});
       }
     });
   }

@@ -1,7 +1,7 @@
 # notification-api-server
-notification api server
-
-
+notification api server에
+websocket 붙이기
+**차후 readme 수정**
 ## postman api
 ### POST {url}/noti/like
 **request body**
