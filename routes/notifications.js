@@ -1,4 +1,6 @@
 var express  = require('express');
+var WebSocketServer = require('ws').Server
+  , wss = new WebSocketServer({ port: 9090 });
 var router = express.Router();
 var Notification = require('../models/Notification');
 var nJwt = require('njwt');
@@ -55,7 +57,10 @@ router.post('/reply',
         res.json({success:false, message:err});
       }
       else {
-        res.json({success:true, data:notification});
+        wss.clients.forEach(function each(client) {
+          client.send("noti updated");
+        });
+        res.json({success:true});
       }
     });
   } 
@@ -87,7 +92,10 @@ router.post('/follow',
         res.json({success:false, message:err});
       }
       else {
-        res.json({success:true, data:notification});
+        wss.clients.forEach(function each(client) {
+          client.send("noti updated");
+        });
+        res.json({success:true});
       }
     });
   }
@@ -119,7 +127,10 @@ router.post('/like',
         res.json({success:false, message:err});
       }
       else {
-        res.json({success:true, data:notification});
+        wss.clients.forEach(function each(client) {
+          client.send("noti updated");
+        });
+        res.json({success:true});
       }
     });
   }
