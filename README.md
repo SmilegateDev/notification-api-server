@@ -1,6 +1,10 @@
 # notification-api-server
 notification api server에
 websocket 붙이기
+
+## 알림 기능
+![알림성공](https://user-images.githubusercontent.com/37662184/76728900-3ed59d00-679b-11ea-91d6-037b7228ce65.png)
+
 **차후 readme 수정**
 ## postman api
 ### POST {url}/noti/like
