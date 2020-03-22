@@ -1,12 +1,35 @@
 var express  = require('express');
-var WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({ port: 9090 });
+//var WebSocketServer = require('ws').Server
+//  , wss = new WebSocketServer({ port: 9090 });
+var io = require('socket.io').listen(80);
 var router = express.Router();
 var Notification = require('../models/Notification');
 var nJwt = require('njwt');
+var client = require('../cache_redis');
 require('dotenv').config();
 var tokenValues;
 var status;
+
+// Show
+router.get('/',
+  function(req, res, next){
+    tokenValues=nJwt.verify(req.headers.authorization,process.env.JWT_SECRET, 'HS256');
+    Notification.find({rec_user:tokenValues.body.id}) // .uid -> .id 로 변경; get 안되는 버그 수정
+      .sort('-createdAt') 
+      .exec(function(err, notifications){
+        if(err) {
+          res.status(500);
+          res.json({success:false, message:err});
+        }
+        else if(!notifications){
+          res.json({success:false, message:'notifications not found'});
+        }
+        else {
+          res.json({success:true, data:notifications});
+        }
+      });
+  }
+);
 
 // Show
 router.get('/myNoti',
@@ -57,9 +80,9 @@ router.post('/reply',
         res.json({success:false, message:err});
       }
       else {
-        wss.clients.forEach(function each(client) {
-          client.send("noti updated");
-        });
+       // wss.clients.forEach(function each(client) {
+       //   client.send("noti updated");
+      //});
         res.json({success:true});
       }
     });
@@ -92,9 +115,9 @@ router.post('/follow',
         res.json({success:false, message:err});
       }
       else {
-        wss.clients.forEach(function each(client) {
-          client.send("noti updated");
-        });
+        //wss.clients.forEach(function each(client) {
+        //  client.send("noti updated");
+        //});
         res.json({success:true});
       }
     });
@@ -127,9 +150,9 @@ router.post('/like',
         res.json({success:false, message:err});
       }
       else {
-        wss.clients.forEach(function each(client) {
-          client.send("noti updated");
-        });
+        //wss.clients.forEach(function each(client) {
+        //  client.send("noti updated");
+        //});
         res.json({success:true});
       }
     });
