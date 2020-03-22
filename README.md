@@ -152,4 +152,6 @@ none
 ```
 
 ## 참고자료
-* [websocket with node.js api](https://www.dontpanicblog.co.uk/2016/04/17/websocket-push-notifications-with-node-js/)
+* [websocket with node.js api](https://www.dontpanicblog.co.uk/2016/04/17/websocket-push-notifications-with-node-js/)  
+* [websocket vs socket.io](https://d2.naver.com/helloworld/1336)  
+* [sending message to specific user](https://www.codershood.info/2016/01/24/sending-message-specific-user-socket-io/)
