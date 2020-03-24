@@ -4,6 +4,8 @@ websocket 붙이기
 
 ## 알림 기능
 ![알림성공](https://user-images.githubusercontent.com/37662184/76728900-3ed59d00-679b-11ea-91d6-037b7228ce65.png)
+![알림성공화면](https://user-images.githubusercontent.com/37662184/77437624-3975f380-6e28-11ea-82d4-c14d9ff5acfe.png)
+
 
 **차후 readme 수정**
 ## postman api
