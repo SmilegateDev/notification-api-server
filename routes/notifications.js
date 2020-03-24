@@ -1,11 +1,12 @@
 var express  = require('express');
 //var WebSocketServer = require('ws').Server
 //  , wss = new WebSocketServer({ port: 9090 });
-var io = require('socket.io').listen(80);
+//var io = require('socket.io').listen(80);
 var router = express.Router();
 var Notification = require('../models/Notification');
 var nJwt = require('njwt');
 var client = require('../cache_redis');
+var io = require('../socket');
 require('dotenv').config();
 var tokenValues;
 var status;
@@ -82,7 +83,20 @@ router.post('/reply',
       else {
        // wss.clients.forEach(function each(client) {
        //   client.send("noti updated");
-      //});
+       //});
+
+       //io.sockets.on('connection', function(socket) {
+       // socket.on("reply", function(msg) {
+
+            // Fetch the socket id from Redis
+          client.get(newNotification.rec_user, function(err, socketId) {
+              if (err) throw err;
+              io.sockets.socket(socketId).emit('reply');
+          });
+            
+        //  });
+        
+        //});
         res.json({success:true});
       }
     });
@@ -118,6 +132,10 @@ router.post('/follow',
         //wss.clients.forEach(function each(client) {
         //  client.send("noti updated");
         //});
+        client.get(newNotification.rec_user, function(err, socketId) {
+          if (err) throw err;
+          io.sockets.socket(socketId).emit('follow');
+        });
         res.json({success:true});
       }
     });
@@ -153,6 +171,10 @@ router.post('/like',
         //wss.clients.forEach(function each(client) {
         //  client.send("noti updated");
         //});
+        client.get(newNotification.rec_user, function(err, socketId) {
+          if (err) throw err;
+          io.sockets.socket(socketId).emit('like');
+        });
         res.json({success:true});
       }
     });
