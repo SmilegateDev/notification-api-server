@@ -91,7 +91,8 @@ router.post('/reply',
             // Fetch the socket id from Redis
           client.get(newNotification.rec_user, function(err, socketId) {
               if (err) throw err;
-              io.sockets.socket(socketId).emit('reply');
+              //io.sockets.socket(socketId).emit('reply'); => 1.0 이전버전 구버전 함수로 버그 발생
+              io.to(socketId).emit('reply');
           });
             
         //  });
@@ -134,7 +135,7 @@ router.post('/follow',
         //});
         client.get(newNotification.rec_user, function(err, socketId) {
           if (err) throw err;
-          io.sockets.socket(socketId).emit('follow');
+          io.to(socketId).emit('follow');
         });
         res.json({success:true});
       }
@@ -173,7 +174,7 @@ router.post('/like',
         //});
         client.get(newNotification.rec_user, function(err, socketId) {
           if (err) throw err;
-          io.sockets.socket(socketId).emit('like');
+          io.to(socketId).emit('like');
         });
         res.json({success:true});
       }
