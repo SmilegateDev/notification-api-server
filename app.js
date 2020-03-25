@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var { sequelize } = require('./models/User.js');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var createError = require('http-errors');
@@ -10,6 +11,17 @@ var WebSocketServer = require('ws').Server
 require('dotenv').config();
 
 // DB setting
+const driver = () => {
+  sequelize.sync().then(() => {
+      console.log('user table sync complete');
+  }).catch((err) => {
+      console.error('user table sync fail');
+      console.error(err);
+  });
+};
+
+driver();
+
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
