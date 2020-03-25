@@ -4,31 +4,41 @@ var express  = require('express');
 //var io = require('socket.io').listen(80);
 var router = express.Router();
 var Notification = require('../models/Notification');
+var User = require('../models/User');
 var nJwt = require('njwt');
 var client = require('../cache_redis');
 var io = require('../socket');
 require('dotenv').config();
 var tokenValues;
 var status;
+var count;
 
 // Show
 router.get('/',
   function(req, res, next){
     tokenValues=nJwt.verify(req.headers.authorization,process.env.JWT_SECRET, 'HS256');
-    Notification.find({rec_user:tokenValues.body.id}) // .uid -> .id 로 변경; get 안되는 버그 수정
-      .sort('-createdAt') 
-      .exec(function(err, notifications){
-        if(err) {
-          res.status(500);
-          res.json({success:false, message:err});
-        }
-        else if(!notifications){
-          res.json({success:false, message:'notifications not found'});
-        }
-        else {
-          res.json({success:true, data:notifications});
-        }
-      });
+    User.findAll({
+      attributes: 'noticeCount',
+      where: {
+        nickname:tokenValues.body.id // .uid -> .id 로 변경; get 안되는 버그 수정
+      }
+    })
+    .then(result => {
+      if(result != null){
+        res.json({
+          code:200,
+          noticeCount: result        
+        })
+        .catch(err=>{
+          console.log(err); 
+          res.json({
+            code:500,
+            message:"오류가 발생하였습니다."
+          });
+         });
+      }
+    });
+
   }
 );
 
@@ -87,13 +97,23 @@ router.post('/reply',
 
        //io.sockets.on('connection', function(socket) {
        // socket.on("reply", function(msg) {
-
-            // Fetch the socket id from Redis
-          client.get(newNotification.rec_user, function(err, socketId) {
-              if (err) throw err;
-              //io.sockets.socket(socketId).emit('reply'); => 1.0 이전버전 구버전 함수로 버그 발생
-              io.to(socketId).emit('reply');
-          });
+        User.increment('noticeCount',
+        {
+          where: {
+            nickname:req.body.rec_user
+          }
+        })
+        .then(result =>{
+          if(result != null){
+            count = result
+          }
+        });
+        // Fetch the socket id from Redis
+        client.get(newNotification.rec_user, function(err, socketId) {
+            if (err) throw err;
+            //io.sockets.socket(socketId).emit('reply'); => 1.0 이전버전 구버전 함수로 버그 발생
+            io.to(socketId).emit('reply',{noticeCount:count});
+        });
             
         //  });
         
@@ -133,9 +153,21 @@ router.post('/follow',
         //wss.clients.forEach(function each(client) {
         //  client.send("noti updated");
         //});
+        User.increment('noticeCount',
+        {
+          where: {
+            nickname:req.body.rec_user
+          }
+        })
+        .then(result =>{
+          if(result != null){
+            count = result
+          }
+        });
+
         client.get(newNotification.rec_user, function(err, socketId) {
           if (err) throw err;
-          io.to(socketId).emit('follow');
+          io.to(socketId).emit('follow',{noticeCount:count});
         });
         res.json({success:true});
       }
@@ -172,9 +204,21 @@ router.post('/like',
         //wss.clients.forEach(function each(client) {
         //  client.send("noti updated");
         //});
+        User.increment('noticeCount',
+        {
+          where: {
+            nickname:req.body.rec_user
+          }
+        })
+        .then(result =>{
+          if(result != null){
+            count = result
+          }
+        });
+
         client.get(newNotification.rec_user, function(err, socketId) {
           if (err) throw err;
-          io.to(socketId).emit('like');
+          io.to(socketId).emit('like',{noticeCount:count});
         });
         res.json({success:true});
       }
@@ -253,6 +297,18 @@ router.delete('/delNoti/:id',
           res.json({success:false, message:'notification not found'});
         }
         else {
+          User.decrement('noticeCount',
+          {
+            where: {
+              nickname:req.params.id
+            }
+          })
+          .then(result =>{
+            if(result != null){
+              count = result
+            }
+          });
+          
           res.json({success:true});
         }
       });
