@@ -20,7 +20,7 @@ router.get('/',
     User.findAll({
       attributes: 'noticeCount',
       where: {
-        nickname:tokenValues.body.id // .uid -> .id 로 변경; get 안되는 버그 수정
+        id:tokenValues.body.id // .uid -> .id 로 변경; get 안되는 버그 수정
       }
     })
     .then(result => {
@@ -100,7 +100,7 @@ router.post('/reply',
         User.increment('noticeCount',
         {
           where: {
-            nickname:req.body.rec_user
+            id:req.body.rec_user
           }
         })
         .then(result =>{
@@ -156,7 +156,7 @@ router.post('/follow',
         User.increment('noticeCount',
         {
           where: {
-            nickname:req.body.rec_user
+            id:req.body.rec_user
           }
         })
         .then(result =>{
@@ -207,7 +207,7 @@ router.post('/like',
         User.increment('noticeCount',
         {
           where: {
-            nickname:req.body.rec_user
+            id:req.body.rec_user
           }
         })
         .then(result =>{
@@ -300,7 +300,7 @@ router.delete('/delNoti/:id',
           User.decrement('noticeCount',
           {
             where: {
-              nickname:req.params.id
+              id:req.params.id
             }
           })
           .then(result =>{
