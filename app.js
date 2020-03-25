@@ -11,13 +11,16 @@ var WebSocketServer = require('ws').Server
 require('dotenv').config();
 
 // DB setting
-const driver = () => {
-  sequelize.sync().then(() => {
-      console.log('user table sync complete');
-  }).catch((err) => {
+const driver = async () => {
+  try {
+      await sequelize.sync();
+  } catch (err) {
       console.error('user table sync fail');
       console.error(err);
-  });
+      return;
+  }
+
+  console.log('user table sync complete');
 };
 
 driver();
