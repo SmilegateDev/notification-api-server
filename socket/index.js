@@ -3,7 +3,7 @@ var sio = require('socket.io');
 var client = require('../cache_redis');
 var io = sio.listen(80);
 
-io.set("store", new sio.RedisStore);
+//io.set("store", new sio.RedisStore);
 
 // connection이 발생할 때 핸들러를 실행한다.
 io.sockets.on('connection', function (socket) {  
