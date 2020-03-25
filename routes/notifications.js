@@ -100,7 +100,7 @@ router.post('/reply',
         User.increment('noticeCount',
         {
           where: {
-            nickname:req.body.rec_user
+            id:req.body.rec_user
           }
         })
         .then(result =>{
@@ -156,7 +156,7 @@ router.post('/follow',
         User.increment('noticeCount',
         {
           where: {
-            nickname:req.body.rec_user
+            id:req.body.rec_user
           }
         })
         .then(result =>{
@@ -207,7 +207,7 @@ router.post('/like',
         User.increment('noticeCount',
         {
           where: {
-            nickname:req.body.rec_user
+            id:req.body.rec_user
           }
         })
         .then(result =>{
@@ -300,7 +300,7 @@ router.delete('/delNoti/:id',
           User.decrement('noticeCount',
           {
             where: {
-              nickname:req.params.id
+              id:req.params.id
             }
           })
           .then(result =>{
