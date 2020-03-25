@@ -20,7 +20,7 @@ router.get('/',
     User.findAll({
       attributes: 'noticeCount',
       where: {
-        nickname:tokenValues.body.id // .uid -> .id 로 변경; get 안되는 버그 수정
+        id:tokenValues.body.id // .uid -> .id 로 변경; get 안되는 버그 수정
       }
     })
     .then(result => {
