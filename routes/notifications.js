@@ -3,8 +3,8 @@ var express  = require('express');
 //  , wss = new WebSocketServer({ port: 9090 });
 //var io = require('socket.io').listen(80);
 var router = express.Router();
-var Notification = require('../models/Notification');
-var User = require('../models/User');
+var Notification = require('../schemas/Notification');
+var {user} = require('../models')
 var nJwt = require('njwt');
 var client = require('../cache_redis');
 var io = require('../socket');
@@ -17,27 +17,25 @@ var count;
 router.get('/',
   function(req, res, next){
     tokenValues=nJwt.verify(req.headers.authorization,process.env.JWT_SECRET, 'HS256');
-    User.findAll({
-      attributes: 'noticeCount',
+    user.findOne({
+      attributes: ['noticeCount'],
       where: {
         id:tokenValues.body.id // .uid -> .id 로 변경; get 안되는 버그 수정
       }
     })
     .then(result => {
       if(result != null){
-        res.json({
-          code:200,
-          noticeCount: result        
-        })
-        .catch(err=>{
-          console.log(err); 
-          res.json({
-            code:500,
-            message:"오류가 발생하였습니다."
-          });
-         });
+        console.log(JSON.stringify(result));
+        res.json(result);
       }
-    });
+    })
+    .catch(err=>{
+      console.log(err); 
+      res.json({
+        code:500,
+        message:"오류가 발생하였습니다."
+      });
+     });
 
   }
 );
@@ -97,7 +95,7 @@ router.post('/reply',
 
        //io.sockets.on('connection', function(socket) {
        // socket.on("reply", function(msg) {
-        User.increment('noticeCount',
+        user.increment('noticeCount',
         {
           where: {
             id:req.body.rec_user
@@ -153,7 +151,7 @@ router.post('/follow',
         //wss.clients.forEach(function each(client) {
         //  client.send("noti updated");
         //});
-        User.increment('noticeCount',
+        user.increment('noticeCount',
         {
           where: {
             id:req.body.rec_user
@@ -204,7 +202,7 @@ router.post('/like',
         //wss.clients.forEach(function each(client) {
         //  client.send("noti updated");
         //});
-        User.increment('noticeCount',
+        user.increment('noticeCount',
         {
           where: {
             id:req.body.rec_user
@@ -297,7 +295,7 @@ router.delete('/delNoti/:id',
           res.json({success:false, message:'notification not found'});
         }
         else {
-          User.decrement('noticeCount',
+          user.decrement('noticeCount',
           {
             where: {
               id:req.params.id

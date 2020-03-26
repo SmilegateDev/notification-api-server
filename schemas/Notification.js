@@ -10,8 +10,7 @@ var notificationSchema = mongoose.Schema({
   status:{ type:String, required:true}
 });
 
-var Notification = mongoose.model('notification', notificationSchema);
-module.exports = Notification;
+module.exports = mongoose.model('Notification', notificationSchema);
 /*
 DB Schema
 NO	컬럼ID		컬럼명		           type		  null		key 
