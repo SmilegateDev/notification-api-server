@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form action="post/create" method="POST" class="form">
+      <div>
+        title : <input id='title' name='title' type='text'>
+      </div>
+      <div>
+        writer : <input id='writer' name='writer' type='text'>
+      </div>
+      <div>
+        contents : <input id='contents' name='contents' type='text'>
+      </div>
+      <input type="submit" value="Post">
+    </form>
+  </body>
+</html>
