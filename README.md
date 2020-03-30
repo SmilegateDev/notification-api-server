@@ -1,13 +1,56 @@
-# notification-api-server
-notification api server에
-websocket 붙이기
+<h1 align="center">Welcome to notification-api-server 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.1.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://github.com/SmilegateDev/notification-api-server#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/SmilegateDev/notification-api-server/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/SmilegateDev/notification-api-server/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/SmilegateDev/notification-api-server" />
+  </a>
+</p>
 
-## 알림 기능
+> socket.io 를 활용한 실시간 알림 api 서버
+
+### 🏠 [Homepage](https://github.com/SmilegateDev/notification-api-server/blob/master/README.md)
+
+## Success images
+
 ![알림성공](https://user-images.githubusercontent.com/37662184/76728900-3ed59d00-679b-11ea-91d6-037b7228ce65.png)
 ![알림성공화면](https://user-images.githubusercontent.com/37662184/77437624-3975f380-6e28-11ea-82d4-c14d9ff5acfe.png)
 
+## Install
 
-**차후 readme 수정**
+```sh
+npm install
+```
+
+## Usage
+
+```sh
+npm start
+```
+or  
+```sh
+nodemon
+```
+## Setting
+
+.env file setting
+```
+COOKIE_SECRET=
+KAKAO_ID=
+GOOGLE_ID=
+GOOGLE_SECRET=
+GMAIL_ID=
+GMAIL_PASS=
+REDIS_ADDRESS=
+REDIS_PASSWORD=
+JWT_SECRET=
+```
+
 ## postman api
 ### POST {url}/noti/like
 **request body**
@@ -153,7 +196,30 @@ none
 }
 ```
 
-## 참고자료
+## References
 * [websocket with node.js api](https://www.dontpanicblog.co.uk/2016/04/17/websocket-push-notifications-with-node-js/)  
 * [websocket vs socket.io](https://d2.naver.com/helloworld/1336)  
 * [sending message to specific user](https://www.codershood.info/2016/01/24/sending-message-specific-user-socket-io/)
+
+## Author
+
+👤 **Tim Jaeyong Lee**
+
+* Website: https://timjlee.github.io/
+* Github: [@SmilegateDev](https://github.com/SmilegateDev)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/SmilegateDev/notification-api-server/issues). You can also take a look at the [contributing guide](https://github.com/SmilegateDev/notification-api-server/blob/master/CONTRIBUTING.md).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2020 [Tim Jaeyong Lee](https://github.com/SmilegateDev).<br />
+This project is [MIT](https://github.com/SmilegateDev/notification-api-server/blob/master/LICENSE) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
