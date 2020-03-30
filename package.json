@@ -1,6 +1,6 @@
 {
   "name": "notification-api-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,10 +11,12 @@
     "url": "git+https://github.com/SmilegateDev/notification-api-server.git"
   },
   "keywords": [
+    "real-time",
     "notification",
     "api",
     "server",
-    "backend"
+    "backend",
+    "socket.io"
   ],
   "author": "Tim Jaeyong Lee",
   "dependencies": {
@@ -22,8 +24,11 @@
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "html": "^1.0.0",
     "http-errors": "^1.7.3",
+    "jade": "^1.11.0",
     "mongoose": "^5.8.6",
     "morgan": "^1.9.1",
     "mysql2": "^2.1.0",
