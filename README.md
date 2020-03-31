@@ -16,6 +16,9 @@
 
 ### 🏠 [Homepage](https://github.com/SmilegateDev/notification-api-server/blob/master/README.md)
 ### 🥊 [Youtube](https://www.youtube.com/watch?v=FuLnFV4qyNM&feature=youtu.be)
+
+## Architecture
+![알림아키텍쳐]()
 ## Success images
 
 ![알림성공](https://github.com/SmilegateDev/notification-api-server/blob/master/images/notice1.png?raw=true)  
