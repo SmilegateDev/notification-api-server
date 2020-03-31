@@ -15,7 +15,7 @@
 > socket.io 를 활용한 실시간 알림 api 서버
 
 ### 🏠 [Homepage](https://github.com/SmilegateDev/notification-api-server/blob/master/README.md)
-### 🥊 [Youtube](https://www.youtube.com/watch?v=FuLnFV4qyNM&feature=youtu.be)
+### 🥊 [Youtube](https://www.youtube.com/watch?v=FuLnFV4qyNM&feature=youtu.be)  
 
 ## Architecture
 ![알림아키텍쳐](https://github.com/SmilegateDev/notification-api-server/blob/master/images/architecture.png?raw=true)
