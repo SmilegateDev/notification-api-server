@@ -15,11 +15,12 @@
 > socket.io 를 활용한 실시간 알림 api 서버
 
 ### 🏠 [Homepage](https://github.com/SmilegateDev/notification-api-server/blob/master/README.md)
-
+### 🥊 [Youtube](https://www.youtube.com/watch?v=FuLnFV4qyNM&feature=youtu.be)
 ## Success images
 
-![알림성공](https://user-images.githubusercontent.com/37662184/76728900-3ed59d00-679b-11ea-91d6-037b7228ce65.png)
-![알림성공화면](https://user-images.githubusercontent.com/37662184/77437624-3975f380-6e28-11ea-82d4-c14d9ff5acfe.png)
+![알림성공](https://github.com/SmilegateDev/notification-api-server/blob/master/images/notice1.png?raw=true)  
+
+![알림성공화면](https://github.com/SmilegateDev/notification-api-server/blob/master/images/notice2.png?raw=true)
 
 ## Install
 
