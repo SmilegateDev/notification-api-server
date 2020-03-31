@@ -309,6 +309,7 @@ router.delete('/unlike',
 // Destroy 
 router.delete('/delNoti/:id',
   function(req, res, next){
+    tokenValues=nJwt.verify(req.headers.authorization,process.env.JWT_SECRET, 'HS256');
     Notification.findOneAndRemove({id:req.params.id})
       .exec(function(err, notification){
         if(err) {
@@ -322,7 +323,7 @@ router.delete('/delNoti/:id',
           user.decrement('noticeCount',
           {
             where: {
-              id:req.params.id
+              id:tokenValues.body.id
             }
           });
          
