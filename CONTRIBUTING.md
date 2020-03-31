@@ -13,13 +13,13 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 | when?                        | commit message example                  |
 | ---------------------------- | --------------------------------------- |
-| feature                      | feat: ⚡️ add feature                   |
-| fix                          | fix: 🔥 bug fix                         |
-| refactoring                  | refactor: 🛠 refactoring something logic |
-| code without production code | chore: 📦 add some packages and scripts |
-| readme or document           | docs: 📚 update readme                  |
-| code about deploy            | deploy: ✈️ make dockefile etc           |
-| style commit ( gts ..)       | style: 💅 change gts style              |
+| feature                      | Feat: ⚡️ add feature                   |
+| fix                          | Fix: 🔥 bug fix                         |
+| refactoring                  | Refactor: 🛠 refactoring something logic |
+| code without production code | Chore: 📦 add some packages and scripts |
+| readme or document           | Docs: 📚 update readme                  |
+| code about deploy            | Deploy: ✈️ make dockefile etc           |
+| style commit ( gts ..)       | Style: 💅 change gts style              |
 
 - [gts](https://github.com/google/gts)
 
